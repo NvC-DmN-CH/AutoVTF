@@ -159,7 +159,7 @@ namespace AutoVTF
             if(mipEnabled)
             {
                 settingsList.Add($"-mfilter {mipFilterSampling}");
-//                settingsList.Add($"-msharpen {mipFilterSharpen}"); // vtfcmd from vtfedit reloaded fork doesn't support msharpen
+                //settingsList.Add($"-msharpen {mipFilterSharpen}"); // the updated vtfcmd from https://github.com/Sky-rym/VTFEdit-Reloaded doesn't support msharpen
             }
             else
             {

@@ -218,8 +218,11 @@ namespace AutoVTF
                 case VtfImageFormat.DXT1: return "DXT1";
                 case VtfImageFormat.DXT5: return "DXT5";
             }
-            Program.Alert(AlertMessages.UnknownImageFormat + ": " + value);
-            return null;
+
+            VtfImageFormat defaultImageFormat = VtfImageFormat.BGRA8888;
+            string defaultImageFormatString = ImageFormatToString(defaultImageFormat);
+            //Program.Alert(AlertMessages.UnknownImageFormat + "\n " + "Defaulting to " + defaultImageFormatString);
+            return defaultImageFormatString;
         }
 
         public static VtfImageFormat GetOpaqueVariantOfImageFormat(VtfImageFormat value)

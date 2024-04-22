@@ -1,8 +1,10 @@
 # What is this?
 
-Keeps an eye on a folder, and when a **supported image**[^1] is modified, it updates (or creates) a VTF with the same name
+Keeps an eye on a folder, and when a **supported image** is modified, it updates (or creates) a VTF with the same name
 
-[^1]:Supported image formats: PNG, BMP, TGA, JPG, JPEG, PSD
+- Supported image formats: PNG, BMP, TGA, JPG, JPEG, PSD
+
+<br />
 
 
 ### Select a `materials` folder and press "Start"
@@ -14,7 +16,7 @@ Keeps an eye on a folder, and when a **supported image**[^1] is modified, it upd
 ### Quick editing thanks to Hammer++'s hotloading ability:
 <img src="https://cdn.discordapp.com/attachments/1131362438227431428/1231853010662195270/update_new.gif?ex=66275404&is=66260284&hm=95074a4cfe90033fd262d627c2f443daea4978ebbcf4d3e0f028c315aa094e5f&" width="850"/>
 
-Hammer++ displays changes on window focus
+(it works this way when any supported image file is updated, this is just an example with photoshop updating a .psd file)
 
 ---
 
@@ -45,7 +47,7 @@ Same with the image formats.
 <br />
 
 ## Details
-- Supports PSD files!
+- Supports most image files including PSD files!
 - Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist, changes target image format to the transparent or opaque variant (DXT5/DXT1, BGRA8888/RGB888, IA88/I8) for optimization
 - Images can be any size, they are automatically resized to the nearest power of two
 

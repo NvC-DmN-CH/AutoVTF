@@ -47,7 +47,7 @@ Same with the image formats.
 <br />
 
 ## Details
-- Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist, changes target image format to the transparent or opaque variant (DXT5/DXT1, BGRA8888/RGB888, IA88/I8) for optimization
+- Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist. Changes the image format to the transparent or opaque variant of the image format of the VTF which is about to get replaced. For example, a VTF with `I8` image format will become `IA88` if the updated content has any transparency, and will go back to `I8` if it's updated with a fully opaque content. And same for the other format pairs (DXT5/DXT1, BGRA8888/RGB888, IA88/I8)
 - Images can be any size, they are automatically resized to the nearest power of two
 
 

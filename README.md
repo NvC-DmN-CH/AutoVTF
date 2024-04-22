@@ -22,7 +22,14 @@ Hammer++ displays changes when its window is clicked
 
 ![gif](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/6edd8f1d-fb10-42ff-ba77-b2c9fc793d0e)
 
-Dragging a VTF allows exporting to image or making a VMT. Dragging an image allows converting to VTF
+- Dragging a VTF:
+  - Allows exporting to PNG, TGA or PSD
+  - "Make Simple VMT": ($basetexture points to VTF path relative to `materials/`)
+
+
+- Dragging an image:
+  - "Lossless": Makes VTF with BGRA8888 compression if image is transparent, or RGB888 if opaque
+  - "Compressed": Makes VTF with DXT5 compression if image is transparent, or DXT1 if opaque
 
 ---
 
@@ -39,9 +46,8 @@ I think that only these 6 flags have an actual impact. If I missed an useful fla
 
 ## Details
 - Supports PSD files!
-- Updates VTF files while preserving settings such as flags, image format, version, and takes into account presence of mipmaps.
+- Updates VTF files while preserving settings such as flags, image format, version, and takes into account presence of mipmaps, and optimizes the target image format to be the opaque or transparent variant (DXT5/DXT1, BGRA888/RGB888, IA88/I8)
 - Images can be any size, they are automatically resized to nearest power of two
-- Can create a basic VMT by dropping a VTF into the "Make Simple VMT" option ($basetexture points to VTF path relative to `materials/`)
 
 
 

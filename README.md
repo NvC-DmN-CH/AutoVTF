@@ -82,7 +82,7 @@ NuGet packages:
 <br />
 
 ## Misc
-I hope that this will be useful for people, because it has already made my workflow so much simpler than before.
+I hope that this will be useful to people, because it has already made my workflow so much simpler than before.
 
 This isn't meant to be a replacement for VTFEdit though, it's still very useful for previewing VTFs and setting some arcane settings.
 

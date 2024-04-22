@@ -40,7 +40,7 @@ Hammer++ displays changes on window focus
 
 I think that only these 6 flags have an actual impact. If I missed an useful flag let me know.
 
-
+Same with the image formats.
 
 <br />
 

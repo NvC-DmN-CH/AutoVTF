@@ -24,7 +24,7 @@ Hammer++ displays changes on window focus
 
 - Dragging a VTF:
   - Allows exporting to PNG, TGA or PSD
-  - `Make Simple VMT` LightmappedGeneric with $basetexture pointing to VTF, relative to `materials/`
+  - `Make Simple VMT` with LightmappedGeneric shader and $basetexture pointing to VTF, relative to `materials/`
 
 
 - Dragging an image:
@@ -46,7 +46,7 @@ I think that only these 6 flags have an actual impact. If I missed an useful fla
 
 ## Details
 - Supports PSD files!
-- Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist, changes target image format to be the opaque or the transparent variant (DXT5/DXT1, BGRA888/RGB888, IA88/I8) for optimization
+- Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist, changes target image format to the transparent or opaque variant (DXT5/DXT1, BGRA8888/RGB888, IA88/I8) for optimization
 - Images can be any size, they are automatically resized to the nearest power of two
 
 

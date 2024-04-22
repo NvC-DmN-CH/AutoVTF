@@ -11,15 +11,16 @@ Keeps an eye on a folder, and when a **supported image**[^1] is modified, it upd
 
 
 ---
-### Quick and painless editing thanks to Hammer++'s hotloading ability:
+### Quick editing thanks to Hammer++'s hotloading ability:
 <img src="https://cdn.discordapp.com/attachments/1131362438227431428/1231853010662195270/update_new.gif?ex=66275404&is=66260284&hm=95074a4cfe90033fd262d627c2f443daea4978ebbcf4d3e0f028c315aa094e5f&" width="850"/>
 
+Hammer++ displays changes when its window is clicked
 
 ---
 
 ### Drag-n-Dropping allows for a bunch of manual conversions:
 
-![ui](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/6edd8f1d-fb10-42ff-ba77-b2c9fc793d0e)
+![gif](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/6edd8f1d-fb10-42ff-ba77-b2c9fc793d0e)
 
 
 
@@ -27,7 +28,7 @@ Keeps an eye on a folder, and when a **supported image**[^1] is modified, it upd
 ---
 
 ### The "Advanced" option shows a panel similar to VTFEdit:
-![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/a75e51e1-1ee2-48db-93ec-2617cd65c6df)
+![gif](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/a75e51e1-1ee2-48db-93ec-2617cd65c6df)
 
 
 
@@ -76,7 +77,7 @@ NuGet packages:
 <br />
 
 ## Misc
-I hope that this will be useful for people, because it's already made my workflow so much simpler than before.
+I hope that this will be useful for people, because it has already made my workflow so much simpler than before.
 
 This isn't meant to be a replacement for VTFEdit though, it's still very useful for previewing VTFs and setting some arcane settings.
 
@@ -87,6 +88,6 @@ If you found a bug or have a suggestion you can create an [issue](https://github
 ## Program is often falsely detected as virus
 And I really don't know why, I promise that it's not!
 
-If you want to be sure that there is no malicious code, take a look at the source code and compile it (x86), and download/compile the external dependencies yourself.
+If you want to be sure that there is nothing malicious, take a look at the source code and compile it (x86), and download/compile the external dependencies yourself.
 
 If you have any idea how to fix this, please let me know

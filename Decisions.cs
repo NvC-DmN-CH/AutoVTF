@@ -75,10 +75,7 @@ namespace AutoVTF
             bool is_silent = true;
             string fileName = "vtfcmd/vtfcmd.exe";
             string arguments = @"-file " + "\"" + filePath + "\" " + importOptions.ToArgumentsString() + (is_silent ? " -silent" : "") + (pause ? " -pause" : "");
-            
             ProcessStartInfo startInfo = new ProcessStartInfo(fileName, arguments);
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
             startInfo.CreateNoWindow = true;
 
             try
@@ -86,7 +83,6 @@ namespace AutoVTF
                 using (Process p = Process.Start(startInfo))
                 {
                     p.WaitForExit(VTFCMD_TIMEOUT_MS);
-
                     TryDeleteTempImageFromVtf(filePath);
                 }
             }
@@ -111,7 +107,6 @@ namespace AutoVTF
                 using (Process p = Process.Start(startInfo))
                 {
                     p.WaitForExit(VTFCMD_TIMEOUT_MS);
-
                     TryDeleteTempImageFromVtf(file_path);
                 }
             }

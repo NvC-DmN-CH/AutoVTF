@@ -159,7 +159,7 @@ namespace AutoVTF
             if(mipEnabled)
             {
                 settingsList.Add($"-mfilter {mipFilterSampling}");
-                settingsList.Add($"-msharpen {mipFilterSharpen}");
+//                settingsList.Add($"-msharpen {mipFilterSharpen}"); // vtfcmd from vtfedit reloaded fork doesn't support msharpen
             }
             else
             {
@@ -173,7 +173,6 @@ namespace AutoVTF
             string settingsString = string.Join(" ", settingsList.ToArray());
             string[] flagsArr = VtfReading.FlagsToStringArr(flags);
             string flagsString = flagsArr.Length > 0 ? (" -flag " + string.Join(" -flag ", flagsArr)) : "";
-//          MessageBox.Show(settingsString + flagsString);
 
             return settingsString + flagsString;
         }

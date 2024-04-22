@@ -14,7 +14,7 @@ Keeps an eye on a folder, and when a **supported image**[^1] is modified, it upd
 ### Quick editing thanks to Hammer++'s hotloading ability:
 <img src="https://cdn.discordapp.com/attachments/1131362438227431428/1231853010662195270/update_new.gif?ex=66275404&is=66260284&hm=95074a4cfe90033fd262d627c2f443daea4978ebbcf4d3e0f028c315aa094e5f&" width="850"/>
 
-Hammer++ displays changes when its window is clicked
+Hammer++ displays changes on window focus
 
 ---
 
@@ -24,16 +24,16 @@ Hammer++ displays changes when its window is clicked
 
 - Dragging a VTF:
   - Allows exporting to PNG, TGA or PSD
-  - "Make Simple VMT": ($basetexture points to VTF path relative to `materials/`)
+  - `Make Simple VMT` LightmappedGeneric with $basetexture pointing to VTF, relative to `materials/`
 
 
 - Dragging an image:
-  - "Lossless": Makes VTF with BGRA8888 compression if image is transparent, or RGB888 if opaque
-  - "Compressed": Makes VTF with DXT5 compression if image is transparent, or DXT1 if opaque
+  - `Lossless` Makes VTF with BGRA8888 compression if image is transparent, or RGB888 if opaque
+  - `Compressed` Makes VTF with DXT5 compression if image is transparent, or DXT1 if opaque
 
 ---
 
-### The "Advanced" option shows a panel similar to VTFEdit:
+### The `Advanced` option shows a panel similar to VTFEdit:
 ![gif](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/a75e51e1-1ee2-48db-93ec-2617cd65c6df)
 
 
@@ -46,8 +46,8 @@ I think that only these 6 flags have an actual impact. If I missed an useful fla
 
 ## Details
 - Supports PSD files!
-- Updates VTF files while preserving settings such as flags, image format, version, and takes into account presence of mipmaps, and optimizes the target image format to be the opaque or transparent variant (DXT5/DXT1, BGRA888/RGB888, IA88/I8)
-- Images can be any size, they are automatically resized to nearest power of two
+- Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist, changes target image format to be the opaque or the transparent variant (DXT5/DXT1, BGRA888/RGB888, IA88/I8) for optimization
+- Images can be any size, they are automatically resized to the nearest power of two
 
 
 

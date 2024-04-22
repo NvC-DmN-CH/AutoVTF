@@ -47,7 +47,6 @@ Same with the image formats.
 <br />
 
 ## Details
-- Supports most image files including PSD files!
 - Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist, changes target image format to the transparent or opaque variant (DXT5/DXT1, BGRA8888/RGB888, IA88/I8) for optimization
 - Images can be any size, they are automatically resized to the nearest power of two
 

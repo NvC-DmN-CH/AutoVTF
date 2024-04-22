@@ -22,8 +22,7 @@ Hammer++ displays changes when its window is clicked
 
 ![gif](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/6edd8f1d-fb10-42ff-ba77-b2c9fc793d0e)
 
-
-
+Dragging a VTF allows exporting to image or making a VMT. Dragging an image allows converting to VTF
 
 ---
 

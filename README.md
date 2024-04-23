@@ -32,8 +32,7 @@ Keeps an eye on a folder, and when a **supported image** is modified, it updates
 - Dragging an image:
   - `Lossless` Makes VTF with BGRA8888 compression if image is transparent, or RGB888 if opaque
   - `Compressed` Makes VTF with DXT5 compression if image is transparent, or DXT1 if opaque
-
-These presets are set to version `7.1` and mipmap generation is enabled with `HANNING` filtering
+  - These presets are set to version `7.1` and mipmap generation is enabled with `HANNING` filtering
 
 ---
 
@@ -44,7 +43,14 @@ These presets are set to version `7.1` and mipmap generation is enabled with `HA
 
 I think that only these 6 flags have an actual impact. If I missed an useful flag let me know.
 
-Same with the image formats.
+Same with the image formats that this program accepts:
+  - BGRA8888
+  - RGB888
+  - IA88
+  - I8
+  - DXT5
+  - DXT1
+  - RGB565 (todo: is this format supported in any branch of the source engine?)
 
 <br />
 

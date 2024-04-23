@@ -16,7 +16,7 @@ Keeps an eye on a folder, and when a **supported image** is modified, it updates
 ### Quick editing thanks to Hammer++'s hotloading ability:
 <img src="https://cdn.discordapp.com/attachments/1131362438227431428/1231853010662195270/update_new.gif?ex=66275404&is=66260284&hm=95074a4cfe90033fd262d627c2f443daea4978ebbcf4d3e0f028c315aa094e5f&" width="850"/>
 
-(it works this way when any supported image file is updated, this is just an example with photoshop updating a .psd file)
+(it works this way when any supported image file is updated, this is just an example of   photoshop updating a .psd file)
 
 ---
 
@@ -33,6 +33,8 @@ Keeps an eye on a folder, and when a **supported image** is modified, it updates
   - `Lossless` Makes VTF with BGRA8888 compression if image is transparent, or RGB888 if opaque
   - `Compressed` Makes VTF with DXT5 compression if image is transparent, or DXT1 if opaque
 
+These presets are set to version `7.1` and mipmap generation is enabled with `HANNING` filtering
+
 ---
 
 ### The `Advanced` option shows a panel similar to VTFEdit:
@@ -47,7 +49,9 @@ Same with the image formats.
 <br />
 
 ## Details
-- Updates VTF files while preserving settings such as flags, image format, version, and considers if mipmaps exist. Image format can alternate between having alpha or not having alpha, depending on whether the input image is opaque or not. For example, a VTF with `I8` image format will become `IA88` if the updated content has any transparency, and will go back to `I8` if it's updated with a fully opaque content. And the same for the other format pairs (`DXT5/DXT1`, `BGRA8888/RGB888`, `IA88/I8`) and the special case pair: (`BGRA8888/RGB565`) because there is no equivalent of `RGB565` with alpha. If the program tries to update a VTF which has any other image format, the updated VTF will default to having an image format of `BGRA8888` (lossless with alpha).
+- Updates VTF files while preserving the settings (flags, image format, version).
+    - If the VTF has no mipmaps, the updated VTF will also not have mipmaps. If it has, the updated VTF will have mipmaps with the `HANNING` filtering.
+    - The image format of the updated VTF can alternate between having alpha or not having alpha, depending on whether the input image has any transparent pixels or it's fully opaque. For example, a VTF with `I8` image format will become `IA88` if the updated content has any transparency, and will go back to `I8` if it's updated with a fully opaque content. And the same for the other format pairs (`DXT5/DXT1`, `BGRA8888/RGB888`, `IA88/I8`) and the special case pair: (`BGRA8888/RGB565`) because there is no equivalent of `RGB565` with alpha. If the program tries to update a VTF which has any other image format, the updated VTF will default to having an image format of `BGRA8888` (lossless with alpha).
 
 - Images can be any size, they are automatically resized to the nearest power of two
 
@@ -58,7 +62,7 @@ Same with the image formats.
 ## Todo
 + Can't make animated textures or envmaps yet
 + I couldn't find a way to support Gimp's native XCF file format
-+ If VTFCmd fails for some reason currently it can't notify the program, so it silently fails.
++ Currently the program can't be notified if VTFCmd fails for some reason, so it just silently fails
 
 <br />
 

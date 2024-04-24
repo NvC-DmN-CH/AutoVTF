@@ -75,7 +75,6 @@ Same with the image formats that this program accepts:
 ## External dependencies information
 Requires .NET 8.0
 
-DevIL can be found >>> [here](https://sourceforge.net/projects/openil/files/DevIL%20Win32%20and%20Win64/DevIL-EndUser-x64-1.8.0.zip/download?use_mirror=phoenixnap)
 
 VTFCmd is compiled from >>> [here](https://github.com/Sky-rym/VTFEdit-Reloaded)
 
@@ -86,6 +85,12 @@ How to compile VTFCmd: (or at least how I managed to compile it)
 - Inside `VTFCmd\VTFCmd.rc` replace `#include "afxres.h"` with `#include<windows.h>`
 - Build for Release 64bit
 - Output will be in `sln\vs2019\VTFCmd\x64\Release\`
+  - in the AutoVTF build folder, make a new folder called `vtfcmd`. Copy VTFCmd.exe and VTFLib.dll there
+
+- VTFCmd requires DevIL, which can be found >>> [here](https://sourceforge.net/projects/openil/files/DevIL%20Win32%20and%20Win64/DevIL-EndUser-x64-1.8.0.zip/download?use_mirror=phoenixnap)
+  - Put DevIL.dll, ILU.dll, ILUT.dll in the `vtfcmd` folder
+
+<br />
 
 NuGet packages:
 - [Magick.NET](https://github.com/dlemstra/Magick.NET)

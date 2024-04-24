@@ -75,7 +75,6 @@ Same with the image formats that this program accepts:
 ## External dependencies information
 Requires .NET 8.0
 
-
 VTFCmd is compiled from >>> [here](https://github.com/Sky-rym/VTFEdit-Reloaded)
 
 How to compile VTFCmd: (or at least how I managed to compile it)
@@ -110,6 +109,6 @@ If you found a bug or have a suggestion you can create an [issue](https://github
 ## Program is often falsely detected as virus
 And I really don't know why, I promise that it's not!
 
-If you want to be sure that there is nothing malicious, take a look at the source code and compile it (x86), and download/compile the external dependencies yourself.
+If you want to be sure that there is nothing malicious, take a look at the source code and compile it, and download/compile the external dependencies yourself.
 
 If you have any idea how to fix this, please let me know

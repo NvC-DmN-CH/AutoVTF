@@ -105,7 +105,7 @@ namespace AutoVTF
             // StartWatchingButton
             // 
             StartWatchingButton.Font = new Font("Lucida Console", 9F);
-            StartWatchingButton.Location = new Point(6, 51);
+            StartWatchingButton.Location = new Point(5, 52);
             StartWatchingButton.Name = "StartWatchingButton";
             StartWatchingButton.Padding = new Padding(5);
             StartWatchingButton.Size = new Size(167, 43);

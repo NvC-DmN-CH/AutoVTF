@@ -8,7 +8,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>AutoVTF.Program</StartupObject>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>Properties\mewo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Properties\mewo.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DarkUI" Version="2.0.2" />

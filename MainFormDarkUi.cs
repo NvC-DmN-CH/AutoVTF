@@ -471,13 +471,13 @@ namespace AutoVTF
             o.SetVersion(uint.Parse(versionStringArr[0]), uint.Parse(versionStringArr[1]));
             o.SetMipEnabled(AdvancedImportPanel_GenMipmaps.Checked);
             o.SetMipFilters((string)AdvancedImportPanel_MipmapFilter.SelectedItem, VtfImportOptionsObject.DEFAULT_MIP_FILTER_SHARPEN);
-            uint flags = 0;
+            uint flags = VtfImportOptionsObject.DEFAULT_FLAGS;
             flags |= AdvancedImportPanel_F_ClampS.Checked ? (uint)VtfImageFlag.CLAMPS : 0;
             flags |= AdvancedImportPanel_F_ClampT.Checked ? (uint)VtfImageFlag.CLAMPT : 0;
             flags |= AdvancedImportPanel_F_PointSample.Checked ? (uint)VtfImageFlag.POINTSAMPLE : 0;
             flags |= AdvancedImportPanel_F_NoLod.Checked ? (uint)VtfImageFlag.NOLOD : 0;
             flags |= AdvancedImportPanel_F_Anisotropic.Checked ? (uint)VtfImageFlag.ANISOTROPIC : 0;
-            o.SetFlags(VtfImportOptionsObject.DEFAULT_FLAGS | flags);
+            o.SetFlags(flags);
             //MessageBox.Show(o.ToArgumentsString());
             Decisions.MakeAsset(AdvancedImportFilesList.First(), o);
             HideAdvancedImportPanel();

@@ -9,7 +9,7 @@ namespace AutoVTF
     internal static class Program
     {
         public const string title = "AutoVTF";
-        public const string version = "1.0";
+        public const string version = "1.1";
         public static MainFormDarkUi MainFormInstance;
         public static string VtfExportTempDirectory;
         [STAThread]
@@ -17,7 +17,7 @@ namespace AutoVTF
         {
             try
             {
-                if (!Directory.Exists("vtfexporttemp"))
+                //if (!Directory.Exists("vtfexporttemp"))
                 {
                     Directory.CreateDirectory("vtfexporttemp");
                 }

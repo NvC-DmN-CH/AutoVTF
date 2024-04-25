@@ -7,8 +7,17 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>AutoVTF.Program</StartupObject>
-    <Platforms>AnyCPU;x86</Platforms>
+    <Platforms>AnyCPU;x86;x64</Platforms>
     <ApplicationIcon>Properties\mewo.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+    <Title>AutoVTF</Title>
+    <Authors>NvC_DmN_CH</Authors>
+    <Company>NvC_DmN_CH</Company>
+    <Product>AutoVTF</Product>
+    <Copyright>no</Copyright>
+    <PackageProjectUrl>no</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/NvC-DmN-CH/AutoVTF</RepositoryUrl>
+    <Description>AutoVTF is a C# Winforms program for working with VTF files in an intuitive and less tedious way</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="DarkUI" Version="2.0.2" />
-    <PackageReference Include="Magick.NET-Q8-x86" Version="13.6.0" />
+    <PackageReference Include="Magick.NET-Q8-x64" Version="13.6.0" />
     <PackageReference Include="Magick.NET.Core" Version="13.6.0" />
   </ItemGroup>
 

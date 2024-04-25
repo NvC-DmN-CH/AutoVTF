@@ -36,7 +36,7 @@ namespace AutoVTF
             WatchFolderTextbox = new DarkTextBox();
             StartWatchingButton = new DarkButton();
             BrowseButton = new DarkButton();
-            folderBrowserDialog1 = new FolderBrowserDialog();
+            folderBrowserDialog = new FolderBrowserDialog();
             hintlabel = new DarkLabel();
             VtfDragPanel = new Panel();
             VtfDragPanelLabelSimpleVmt = new DarkLabel();
@@ -48,7 +48,7 @@ namespace AutoVTF
             ImageDragPanelLabelAdvanced = new DarkLabel();
             ImageDragPanelLabelCompressed = new DarkLabel();
             ImageDragPanelLabelLossless = new DarkLabel();
-            timer1 = new System.Windows.Forms.Timer(components);
+            dragPanelsTimer = new System.Windows.Forms.Timer(components);
             StopWatchingButton = new DarkButton();
             AdvancedImportPanel = new Panel();
             panel2 = new Panel();
@@ -70,7 +70,7 @@ namespace AutoVTF
             label4 = new DarkLabel();
             AdvancedImportPanel_Cancel = new DarkButton();
             AdvancedImportPanel_Ok = new DarkButton();
-            toolTip1 = new ToolTip(components);
+            toolTip = new ToolTip(components);
             groupBox4 = new DarkGroupBox();
             GotoButton = new DarkButton();
             panel1 = new Panel();
@@ -271,9 +271,10 @@ namespace AutoVTF
             ImageDragPanelLabelLossless.Text = "Lossless";
             ImageDragPanelLabelLossless.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // timer1
+            // dragPanelsTimer
             // 
-            timer1.Tick += timer1_Tick;
+            dragPanelsTimer.Interval = 20;
+            dragPanelsTimer.Tick += dragPanelsTimer_Tick;
             // 
             // StopWatchingButton
             // 
@@ -335,7 +336,7 @@ namespace AutoVTF
             AdvancedImportPanel_F_Anisotropic.Size = new Size(87, 19);
             AdvancedImportPanel_F_Anisotropic.TabIndex = 12;
             AdvancedImportPanel_F_Anisotropic.Text = "Anisotropic";
-            toolTip1.SetToolTip(AdvancedImportPanel_F_Anisotropic, "Forces the texture to be rendered with anisotropic filtering,\r\neven if anisotropic filtering is disabled in the game settings.");
+            toolTip.SetToolTip(AdvancedImportPanel_F_Anisotropic, "Forces the texture to be rendered with anisotropic filtering,\r\neven if anisotropic filtering is disabled in the game settings.");
             // 
             // AdvancedImportPanel_F_NoLod
             // 
@@ -345,7 +346,7 @@ namespace AutoVTF
             AdvancedImportPanel_F_NoLod.Size = new Size(68, 19);
             AdvancedImportPanel_F_NoLod.TabIndex = 11;
             AdvancedImportPanel_F_NoLod.Text = "No LOD";
-            toolTip1.SetToolTip(AdvancedImportPanel_F_NoLod, "Prevents the texture from getting downscaled in low texture quality settings.");
+            toolTip.SetToolTip(AdvancedImportPanel_F_NoLod, "Prevents the texture from getting downscaled in low texture quality settings.");
             // 
             // AdvancedImportPanel_F_PointSample
             // 
@@ -355,7 +356,7 @@ namespace AutoVTF
             AdvancedImportPanel_F_PointSample.Size = new Size(96, 19);
             AdvancedImportPanel_F_PointSample.TabIndex = 10;
             AdvancedImportPanel_F_PointSample.Text = "Point Sample";
-            toolTip1.SetToolTip(AdvancedImportPanel_F_PointSample, "Makes the texture pixelated.");
+            toolTip.SetToolTip(AdvancedImportPanel_F_PointSample, "Makes the texture pixelated.");
             // 
             // AdvancedImportPanel_F_ClampT
             // 
@@ -365,7 +366,7 @@ namespace AutoVTF
             AdvancedImportPanel_F_ClampT.Size = new Size(70, 19);
             AdvancedImportPanel_F_ClampT.TabIndex = 9;
             AdvancedImportPanel_F_ClampT.Text = "Clamp T";
-            toolTip1.SetToolTip(AdvancedImportPanel_F_ClampT, "Doesn't let the texture repeat vertically.\r\nThe uppermost and bottommost pixels carry on infinitely.");
+            toolTip.SetToolTip(AdvancedImportPanel_F_ClampT, "Doesn't let the texture repeat vertically.\r\nThe uppermost and bottommost pixels carry on infinitely.");
             // 
             // AdvancedImportPanel_F_ClampS
             // 
@@ -375,7 +376,7 @@ namespace AutoVTF
             AdvancedImportPanel_F_ClampS.Size = new Size(70, 19);
             AdvancedImportPanel_F_ClampS.TabIndex = 8;
             AdvancedImportPanel_F_ClampS.Text = "Clamp S";
-            toolTip1.SetToolTip(AdvancedImportPanel_F_ClampS, "Doesn't let the texture repeat horizontally.\r\nThe leftmost and rightmost pixels carry on infinitely.");
+            toolTip.SetToolTip(AdvancedImportPanel_F_ClampS, "Doesn't let the texture repeat horizontally.\r\nThe leftmost and rightmost pixels carry on infinitely.");
             // 
             // AdvancedImportPanel_VtfVersion
             // 
@@ -587,12 +588,12 @@ namespace AutoVTF
         }
 
         #endregion
-        private FolderBrowserDialog folderBrowserDialog1;
+        private FolderBrowserDialog folderBrowserDialog;
         private Panel VtfDragPanel;
         private Panel ImageDragPanel;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer dragPanelsTimer;
         private Panel AdvancedImportPanel;
-        private ToolTip toolTip1;
+        private ToolTip toolTip;
         private Panel panel1;
         private Panel petPanel;
         private DarkTextBox WatchFolderTextbox;

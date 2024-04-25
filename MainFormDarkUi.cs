@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DarkUI.Forms;
@@ -40,7 +41,6 @@ namespace AutoVTF
             SetChildrenControlsDoubleBuffered(this);
             InitAdvancedImportPanel();
             petPanelInit();
-            timer1.Start();
         }
 
         public string GetWatchFolderTextboxValue()
@@ -62,10 +62,10 @@ namespace AutoVTF
 
         private void BrowseButton_Click(object sender, EventArgs e)
         {
-            DialogResult result = folderBrowserDialog1.ShowDialog();
+            DialogResult result = folderBrowserDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string path = folderBrowserDialog1.SelectedPath;
+                string path = folderBrowserDialog.SelectedPath;
                 SetWatchFolderTextboxValue(path);
             }
         }
@@ -183,38 +183,40 @@ namespace AutoVTF
 
         private void ShowImageDragPanel()
         {
-            this.Text = titleImageDragPanel;
+            DragPanelsTimerStart();
             ImageDragPanel.Visible = true;
 
             ResetDragPanelLabels();
             this.Refresh();
             ImageDragPanel.Refresh();
+            this.Text = titleImageDragPanel;
         }
 
         private void HideImageDragPanel()
         {
-            this.Text = title;
             ImageDragPanel.Visible = false;
             this.Refresh();
             ImageDragPanel.Refresh();
+            this.Text = title;
         }
 
         private void ShowVtfDragPanel()
         {
-            this.Text = titleVtfDragPanel;
+            DragPanelsTimerStart();
             VtfDragPanel.Visible = true;
 
             ResetDragPanelLabels();
             this.Refresh();
             VtfDragPanel.Refresh();
+            this.Text = titleVtfDragPanel;
         }
 
         private void HideVTFDragPanel()
         {
-            this.Text = title;
             VtfDragPanel.Visible = false;
             this.Refresh();
             VtfDragPanel.Refresh();
+            this.Text = title;
         }
 
         private void ResetDragPanelLabels()
@@ -331,22 +333,47 @@ namespace AutoVTF
             label.BackColor = DarkUI.Config.Colors.DarkBackground;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                return;
-            }
+        private int dragTimerDelayedExitTicksDuration = 8;
+        private int dragTimerTicksWithoutMouseOver = 0;
 
+
+        private void DragPanelsTimerStart()
+        {
+            dragPanelsTimer.Start();
+        }
+
+        private void DragPanelsTimerStop()
+        {
+            dragPanelsTimer.Stop();
+            HideDragPanels();
+        }
+
+        private void dragPanelsTimer_Tick(object sender, EventArgs e)
+        {
             HandleMouseState();
             HandleKayboardState();
+
+            if (!isMouseOverForm)
+            {
+                dragTimerTicksWithoutMouseOver++;
+            }
+            else
+            {
+                dragTimerTicksWithoutMouseOver = 0;
+            }
+
+            if (dragTimerTicksWithoutMouseOver > dragTimerDelayedExitTicksDuration)
+            {
+                DragPanelsTimerStop();
+                return;
+            }
         }
 
         private void HandleKayboardState()
         {
             if (GetAsyncKeyState(Keys.Escape))
             {
-                OnEscapePressed();
+                DragPanelsTimerStop();
             }
         }
 
@@ -372,28 +399,15 @@ namespace AutoVTF
             isMouseOverForm = false;
         }
 
-        private void OnEscapePressed()
-        {
-            if (VtfDragPanel.Visible)
-            {
-                HideVTFDragPanel();
-            }
-
-            if (ImageDragPanel.Visible)
-            {
-                HideImageDragPanel();
-            }
-        }
-
         private void OnMouseEnterForm()
         {
+
         }
 
         private void OnMouseLeaveForm()
         {
-            HideDragPanels();
+            
         }
-
 
         private void StartWatchingButton_Click(object sender, EventArgs e)
         {

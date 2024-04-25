@@ -280,7 +280,7 @@ namespace AutoVTF
             // 
             StopWatchingButton.Enabled = false;
             StopWatchingButton.Font = new Font("Lucida Console", 9F);
-            StopWatchingButton.Location = new Point(178, 51);
+            StopWatchingButton.Location = new Point(178, 52);
             StopWatchingButton.Name = "StopWatchingButton";
             StopWatchingButton.Padding = new Padding(5);
             StopWatchingButton.Size = new Size(128, 43);

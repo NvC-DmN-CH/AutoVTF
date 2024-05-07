@@ -13,7 +13,7 @@ Keeps an eye on a folder, and when a **supported image** is modified, it updates
 
 ---
 ### Quick editing thanks to Hammer++'s hotloading ability:
-**VTF image format and flags persist if the contents are updated!**
+**VTF image format and flags persist when image is updated!**
 
 <img src="https://cdn.discordapp.com/attachments/1131362438227431428/1231853010662195270/update_new.gif?ex=6637cec4&is=66367d44&hm=0a1692a8bd443aa47af6ae257739cd6db70cb5f4414cf1724868ccf1f7dcd03f&" width="850"/>
 

@@ -19,7 +19,7 @@ Keeps an eye on a folder, and when a **supported image** is modified, it updates
 
 (it works this way when any supported image file is updated, this is just an example of   photoshop updating a .psd file)
 
-> [!WARNING]  
+> [!IMPORTANT]  
 Due to Adobe's closed-source nature, new Photoshop versions have features which are unsupported, and may cause differences in exporting. It's advisable to use an older version (I had no issues with Photoshop CS6)
 ---
 

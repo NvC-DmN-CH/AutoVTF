@@ -11,13 +11,16 @@ Keeps an eye on a folder, and when a **supported image** is modified, it updates
 
 ![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/0bb94b08-fbec-4dde-8e87-cfd8e6bd28f8)
 
-
 ---
 ### Quick editing thanks to Hammer++'s hotloading ability:
-<img src="https://cdn.discordapp.com/attachments/1131362438227431428/1231853010662195270/update_new.gif?ex=66275404&is=66260284&hm=95074a4cfe90033fd262d627c2f443daea4978ebbcf4d3e0f028c315aa094e5f&" width="850"/>
+**VTF image format and flags persist when image is updated!**
+
+<img src="https://i.imgur.com/lExfFyl.gif" width="850"/>
 
 (it works this way when any supported image file is updated, this is just an example of   photoshop updating a .psd file)
 
+> [!IMPORTANT]  
+Due to Adobe's closed-source nature, new Photoshop versions have features which are unsupported, and may cause differences in exporting. It's advisable to use an older version (I had no issues with Photoshop CS6)
 ---
 
 ### Drag-n-Dropping allows for a bunch of manual conversions:

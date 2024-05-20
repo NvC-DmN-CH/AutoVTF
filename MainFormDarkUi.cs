@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DarkUI.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AutoVTF
 {
@@ -114,22 +115,38 @@ namespace AutoVTF
             if (files == null)
                 return;
 
-            string file = files[0]; // todo: add support for dragging and dropping multiple files
-            string ext = Path.GetExtension(file).ToLower();
+            bool is_images = true;
+            bool is_vtf = true;
 
-            // its an image
-            if (Extensions.ImageExtensions.Contains(ext))
+            for (int i = 0; i < files.Length; i++)
+            {
+                string file = files[i];
+                string ext = Path.GetExtension(file).ToLower();
+
+                if (!Extensions.ImageExtensions.Contains(ext))
+                {
+                    is_images = false;
+                }
+
+                if (ext != Extensions.Vtf)
+                {
+                    is_vtf = false;
+                }
+            }
+
+            if (is_images)
             {
                 ShowImageDragPanel();
                 return;
             }
 
-            // its a vtf
-            if (ext == Extensions.Vtf)
+            if (is_vtf)
             {
                 ShowVtfDragPanel();
                 return;
             }
+
+            // is something else or combination of other unsupported extensions
         }
 
         private void MainForm_DragLeave(object sender, EventArgs e)
@@ -241,9 +258,7 @@ namespace AutoVTF
 
         private void DragPanelLabel_DragDrop(object sender, DragEventArgs e)
         {
-
             string[] files = GetDraggingFilePaths(sender, e);
-            string filePath = files[0];
             VtfImportOptionsObject importOptions = null;
             Label label = (Label)sender;
 
@@ -266,43 +281,47 @@ namespace AutoVTF
             }
 
             HideDragPanels();
-
-            if (importOptions == null)
+            for (int i = 0; i < files.Length; i++)
             {
-                if (label == VtfDragPanelLabelPSD)
+                string filePath = files[i];
+
+                if (importOptions == null)
                 {
-                    Task.Run(() => { Decisions.ExportAssetToPsd(filePath); });
-                    return;
-                }
-                else if (label == VtfDragPanelLabelXCF)
-                {
-                    Task.Run(() => { Decisions.ExportAssetToXcf(filePath); });
-                    return;
-                }
-                else if (label == VtfDragPanelLabelSimpleVmt)
-                {
-                    Task.Run(() => { Decisions.MakeSimpleVmt(filePath); });
-                    return;
+                    if (label == VtfDragPanelLabelPSD)
+                    {
+                        Task.Run(() => { Decisions.ExportAssetToPsd(filePath); });
+                        continue;
+                    }
+                    else if (label == VtfDragPanelLabelXCF)
+                    {
+                        Task.Run(() => { Decisions.ExportAssetToXcf(filePath); });
+                        continue;
+                    }
+                    else if (label == VtfDragPanelLabelSimpleVmt)
+                    {
+                        Task.Run(() => { Decisions.MakeSimpleVmt(filePath); });
+                        continue;
+                    }
+
+                    string exportOptions = GetExportOptions(label);
+
+                    Task.Run(() => { Decisions.ExportAsset(filePath, exportOptions); });
+                    continue;
                 }
 
-                string exportOptions = GetExportOptions(label);
+                VtfImageFormat imageFormat = importOptions.GetImageFormat();
 
-                Task.Run(() => { Decisions.ExportAsset(filePath, exportOptions); });
-                return;
+                // load vtf options and override image format with ours
+                string vtfPath = Path.ChangeExtension(filePath, Extensions.Vtf);
+                if (File.Exists(vtfPath))
+                {
+                    importOptions.SetFromVtf(vtfPath);
+                }
+
+                importOptions.SetImageFormat(imageFormat);
+                importOptions.SetImageFormatHasAlphaFromFile(filePath);
+                Task.Run(() => { Decisions.MakeAsset(filePath, importOptions); });
             }
-
-            VtfImageFormat imageFormat = importOptions.GetImageFormat();
-
-            // load vtf options and override image format with ours
-            string vtfPath = Path.ChangeExtension(filePath, Extensions.Vtf);
-            if (File.Exists(vtfPath))
-            {
-                importOptions.SetFromVtf(vtfPath);
-            }
-
-            importOptions.SetImageFormat(imageFormat);
-            importOptions.SetImageFormatHasAlphaFromFile(filePath);
-            Task.Run(() => { Decisions.MakeAsset(filePath, importOptions); });
         }
 
         private string GetExportOptions(Label label)
@@ -492,8 +511,10 @@ namespace AutoVTF
             flags |= AdvancedImportPanel_F_NoLod.Checked ? (uint)VtfImageFlag.NOLOD : 0;
             flags |= AdvancedImportPanel_F_Anisotropic.Checked ? (uint)VtfImageFlag.ANISOTROPIC : 0;
             o.SetFlags(flags);
-            //MessageBox.Show(o.ToArgumentsString());
-            Decisions.MakeAsset(AdvancedImportFilesList.First(), o);
+            foreach (string file in AdvancedImportFilesList)
+            {
+                Decisions.MakeAsset(file, o);
+            }
             HideAdvancedImportPanel();
         }
 

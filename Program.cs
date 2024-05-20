@@ -9,7 +9,7 @@ namespace AutoVTF
     internal static class Program
     {
         public const string title = "AutoVTF";
-        public const string version = "1.1";
+        public const string version = "1.2";
         public static MainFormDarkUi MainFormInstance;
         public static string VtfExportTempDirectory;
         [STAThread]

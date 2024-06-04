@@ -287,6 +287,7 @@ namespace AutoVTF
 
                 if (importOptions == null)
                 {
+                    // exporting
                     if (label == VtfDragPanelLabelPSD)
                     {
                         Task.Run(() => { Decisions.ExportAssetToPsd(filePath); });
@@ -313,13 +314,20 @@ namespace AutoVTF
 
                 // load vtf options and override image format with ours
                 string vtfPath = Path.ChangeExtension(filePath, Extensions.Vtf);
-                if (File.Exists(vtfPath))
+                bool overwritingExistingVtf = File.Exists(vtfPath);
+
+                if (overwritingExistingVtf)
                 {
                     importOptions.SetFromVtf(vtfPath);
                 }
 
                 importOptions.SetImageFormat(imageFormat);
-                importOptions.SetImageFormatHasAlphaFromFile(filePath);
+
+                if (overwritingExistingVtf)
+                {
+                    importOptions.SetImageFormatHasAlphaFromFile(filePath);
+                }
+
                 Task.Run(() => { Decisions.MakeAsset(filePath, importOptions); });
             }
         }

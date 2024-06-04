@@ -65,7 +65,7 @@ namespace AutoVTF
             {
                 Program.MainFormInstance.AdvancedImportPanel_MipmapFilter.SelectedIndex = 10;
                 Program.MainFormInstance.AdvancedImportPanel_VtfVersion.SelectedIndex = 1;
-                Program.MainFormInstance.AdvancedImportPanel_ImageFormat.SelectedIndex = 0;
+                Program.MainFormInstance.AdvancedImportPanel_ImageFormat.SelectedIndex = 2;
                 Program.MainFormInstance.AdvancedImportPanel_GenMipmaps.Checked = true;
                 Program.MainFormInstance.AdvancedImportPanel_F_ClampS.Checked = false;
                 Program.MainFormInstance.AdvancedImportPanel_F_ClampT.Checked = false;

@@ -75,6 +75,7 @@ namespace AutoVTF
                 return;
             }
 
+            Program.MainFormInstance.SetWatchFolderTextboxValue(new_object.WatchFolderPath + "."); // is this hacky?? We need to make sure that the value we set here, differs from the last value in order to trigger the TextboxChanged event. I dont like doing stuff like this... makes me feel stupid :(
             Program.MainFormInstance.SetWatchFolderTextboxValue(new_object.WatchFolderPath);
             Program.MainFormInstance.AdvancedImportPanel_MipmapFilter.SelectedIndex = new_object.AdvancedImportPanel_MipmapFilter;
             Program.MainFormInstance.AdvancedImportPanel_VtfVersion.SelectedIndex   = new_object.AdvancedImportPanel_VtfVersion;

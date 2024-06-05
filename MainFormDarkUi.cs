@@ -17,11 +17,13 @@ namespace AutoVTF
         [DllImport("user32.dll")]
         public static extern bool GetAsyncKeyState(Keys Key);
 
-        private bool isMouseOverForm = false;
         public string title = Program.title + " " + Program.version;
+
+        private bool isMouseOverForm = false;
         private string titleImageDragPanel = "Convert To VTF:";
         private string titleVtfDragPanel = "Export VTF To:";
         private List<Label> DragPanelLabels = new List<Label>();
+        private bool watchFolderTextboxHasText = true;
 
 
         public MainFormDarkUi()
@@ -489,6 +491,22 @@ namespace AutoVTF
 
         private void WatchFolderTextbox_TextChanged(object sender, EventArgs e)
         {
+            // disable goto button if empty (why? it was suggested in an issue, i thought it was a good idea then, but now idk. but anyway its a nice feature ig)
+            bool textBefore = watchFolderTextboxHasText;
+            bool textNow = WatchFolderTextbox.Text.Length > 0;
+
+            if (textBefore == false && textNow == true)
+            {
+                GotoButton.Enabled = true;
+            }
+
+            if (textBefore == true && textNow == false)
+            {
+                GotoButton.Enabled = false;
+            }
+
+            watchFolderTextboxHasText = textNow;
+
             UnhighlightWatchFolderTextbox();
         }
 

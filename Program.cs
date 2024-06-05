@@ -9,7 +9,7 @@ namespace AutoVTF
     internal static class Program
     {
         public const string title = "AutoVTF";
-        public const string version = "1.2.1";
+        public const string version = "1.2.2";
         public static MainFormDarkUi MainFormInstance;
         public static string VtfExportTempDirectory;
         [STAThread]
@@ -36,8 +36,12 @@ namespace AutoVTF
 
         public static void Alert(string message)
         {
-            SystemSounds.Exclamation.Play();
-            DarkMessageBox.ShowWarning(message, "Alert");
+            // proceed forward on the main thread
+            MainFormInstance.BeginInvoke((MethodInvoker)delegate
+            {
+                SystemSounds.Exclamation.Play();
+                DarkMessageBox.ShowWarning(message, "Alert");
+            });
         }
     }
 }

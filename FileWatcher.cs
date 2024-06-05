@@ -129,6 +129,12 @@ namespace AutoVTF
                     return;
                 }
 
+                if (!File.Exists(file_path))
+                {
+                    // yea it seems like the world of filesystems is weird, and this can happen
+                    return;
+                }
+
                 Decisions.OnFileUpdated(file_path);
             }
             catch (Exception e)

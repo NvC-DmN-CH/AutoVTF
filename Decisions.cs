@@ -10,12 +10,16 @@ using ImageMagick;
 using static System.Net.Mime.MediaTypeNames;
 using System.Web;
 using System.Drawing.Interop;
+using System.Threading.Channels;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using System.Buffers;
+using ImageMagick.Formats;
 
 namespace AutoVTF
 {
     internal class Decisions
     {
-        private const int VTFCMD_TIMEOUT_MS = 1000 * 10;
+        private const int VTFCMD_TIMEOUT_MS = 3000 * 10; // 30 seconds
         private static List<string> ignoredExtensions = [ Extensions.PsdExportTemp, Extensions.Vtf]; // i kinda dont like the whole thing with the ignored extensions here but its ok
 
         public static void OnFileUpdated(string filePath)
@@ -67,8 +71,19 @@ namespace AutoVTF
             string ext = Path.GetExtension(filePath).ToLower();
             if (ext == Extensions.Psd)
             {
-                MakeAssetFromPsd(filePath, importOptions);
-                return;
+                // we disable this for now:
+                if (false)
+                {
+                    MakeAssetFromPsd(filePath, importOptions);
+                    return;
+                }
+                // reason why:
+                // 
+                // we let VTFCmd deal with converting PSD to VTF. Its PSD reading capabilities seem to:
+                // 1. avoid premultiplying alpha when exporting PSD, something which Magick.NET does and i'm not sure if it can be disabled
+                // 2. always read the Alpha Channel, regardless of whether the PSD has more than 1 layer or not. Magick.NET reads it only if there is 1 layer when it's the default locked "Background" layer
+                // 
+                // still Magick.NET is preferred because it is actively supported, VTFCmd uses DevIL which was last updated in 2017
             }
 
             bool pause = false;
@@ -132,7 +147,7 @@ namespace AutoVTF
             {
                 using (Process p = Process.Start(startInfo))
                 {
-                    p.WaitForExit();
+                    p.WaitForExit(VTFCMD_TIMEOUT_MS);
                     string tga_filename = ChangeExtension(Path.GetFileName(file_path), Extensions.VtfExportTempTga);
                     string tga_path = Path.Combine(Program.VtfExportTempDirectory, tga_filename);
                     MakePsdFromTga(tga_path);
@@ -162,7 +177,7 @@ namespace AutoVTF
             {
                 using (Process p = Process.Start(startInfo))
                 {
-                    p.WaitForExit();
+                    p.WaitForExit(VTFCMD_TIMEOUT_MS);
                     string tga_filename = ChangeExtension(Path.GetFileName(file_path), Extensions.VtfExportTempTga);
                     string tga_path = Path.Combine(Program.VtfExportTempDirectory, tga_filename);
                     MakeXcfFromTga(tga_path);
@@ -214,25 +229,32 @@ namespace AutoVTF
             string filePathTemp = ChangeExtension(filePathPsd, Extensions.PsdExportTemp);
             try
             {
-                using (MagickImage image = new MagickImage(filePathPsd, MagickFormat.Psd))
+                /*
+                // read psd layers
+                using (MagickImageCollection collection = new MagickImageCollection(filePathPsd, MagickFormat.Psd))
                 {
-                    /*
-                    MagickImageCollection collection = new MagickImageCollection(filePathPsd, MagickFormat.Psd);
                     string print = "";
-                    for (int i = 0; i < collection.Count; i++)
+                    for (int i = 0; i < collection.; i++)
                     {
                         print += "l: " + collection[i].Label + "\n";
                     }
-                    MessageBox.Show( "" + print );
-                    */
+                    MessageBox.Show("" + print);
+                }
+                */
 
-                    image.Write(filePathTemp, MagickFormat.Tga);
+
+                using (MagickImage psd = new MagickImage(filePathPsd, MagickFormat.Psd))
+                {
+                    //IEnumerable<PixelChannel> channels = psd.Channels;
+                    //MessageBox.Show("channels:" + channels.Count());
+
+                    psd.Write(filePathTemp, MagickFormat.Tga);
                     MakeAsset(filePathTemp, importOptions);
                 }
             }
             catch (MagickException e)
             {
-                Program.Alert(AlertMessages.ExportPsdFail);
+                Program.Alert(AlertMessages.ExportPsdFail + "\n" + e.Message);
             }
         }
 
@@ -241,9 +263,41 @@ namespace AutoVTF
             string file_path_psd = ChangeExtension(file_path_tga, Extensions.Psd);
             try
             {
-                using (MagickImage image = new MagickImage(file_path_tga))
+                using (MagickImage tga = new MagickImage(file_path_tga))
                 {
-                    image.Write(file_path_psd, MagickFormat.Psd);
+                    // default first layer
+                    MagickImage defaultFirstLayer = (MagickImage)tga.Clone();
+
+                    // alpha
+                    MagickImage alphaChannel = (MagickImage)tga.Separate(Channels.Alpha).First();
+                    alphaChannel.Compose = CompositeOperator.No;
+
+                    // color
+                    MagickImage colorChannel = (MagickImage)tga.Clone();
+                    colorChannel.Compose = CompositeOperator.No;
+
+                    // color with alpha
+                    MagickImage colorWithAlpha = (MagickImage)tga.Clone();
+                    colorWithAlpha.Composite(alphaChannel, CompositeOperator.CopyAlpha);
+
+                    // make psd
+                    MagickImageCollection collection = new MagickImageCollection();
+
+                    // add layers
+                    collection.Add(defaultFirstLayer);
+                    collection[0].Label = "Default First Layer";
+
+                    collection.Add(alphaChannel);
+                    collection[1].Label = "Alpha";
+
+                    collection.Add(colorChannel);
+                    collection[2].Label = "Color";
+
+                    collection.Add(colorWithAlpha);
+                    collection[3].Label = "Color + Alpha";
+
+                    // save psd
+                    collection.Write(file_path_psd, MagickFormat.Psd);
                 }
             }
             catch (MagickException e)

@@ -56,6 +56,8 @@ namespace AutoVTF
             string result = value.Replace("\\", "/").Trim();
             WatchFolderTextbox.Text = result;
             WatchFolderTextbox.Select(result.Length, 0);
+
+            WatchFolderTextbox_TextChanged(null, null);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -491,6 +493,9 @@ namespace AutoVTF
 
         private void WatchFolderTextbox_TextChanged(object sender, EventArgs e)
         {
+            sender = null;
+            e = null;
+
             // disable goto button if empty (why? it was suggested in an issue, i thought it was a good idea then, but now idk. but anyway its a nice feature ig)
             bool textBefore = watchFolderTextboxHasText;
             bool textNow = WatchFolderTextbox.Text.Length > 0;

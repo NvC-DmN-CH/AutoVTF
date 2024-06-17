@@ -1,6 +1,6 @@
 # What is this?
 
-Keeps an eye on a folder, and when a **supported image** is modified, it updates (or creates) a VTF with the same name
+Keeps an eye on a folder, and when any image gets modified, it makes or updates the VTF with the same name
 
 - Supported image formats: PNG, BMP, TGA, JPG, JPEG, PSD
 

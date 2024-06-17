@@ -4,8 +4,10 @@ using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using DarkUI.Controls;
 using DarkUI.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace AutoVTF
 {
@@ -18,6 +20,7 @@ namespace AutoVTF
         public static extern bool GetAsyncKeyState(Keys Key);
 
         public string title = Program.title + " " + Program.version;
+        public RecentsManager RecentsManager;
 
         private bool isMouseOverForm = false;
         private string titleImageDragPanel = "Convert To VTF:";
@@ -41,6 +44,8 @@ namespace AutoVTF
                 DragPanelLabels[i].DragDrop += DragPanelLabel_DragDrop;
             }
 
+            RecentsManager = new RecentsManager(RecentsMenuStrip);
+            MakeButtonsUnfocusable(this);
             SetChildrenControlsDoubleBuffered(this);
             InitAdvancedImportPanel();
             petPanelInit();
@@ -437,21 +442,28 @@ namespace AutoVTF
 
         private void OnMouseLeaveForm()
         {
-            
+
         }
 
         private void StartWatchingButton_Click(object sender, EventArgs e)
         {
-            bool is_watch_folder_valid = Directory.Exists(GetWatchFolderTextboxValue());
+            string watchFolderText = GetWatchFolderTextboxValue();
 
-            if (is_watch_folder_valid)
+            if (watchFolderText.Trim() == "")
             {
-                OnStartWatchingSuccess();
+                HighlightWatchFolderTextbox();
+                Program.Alert(AlertMessages.WatchFolderEmpty);
                 return;
             }
 
-            HighlightWatchFolderTextbox();
-            Program.Alert(AlertMessages.WatchFolderInvalid);
+            if (!Directory.Exists(watchFolderText))
+            {
+                HighlightWatchFolderTextbox();
+                Program.Alert(AlertMessages.WatchFolderInvalid);
+                return;
+            }
+
+            OnStartWatchingSuccess();
         }
         private void UnhighlightWatchFolderTextbox()
         {
@@ -482,19 +494,24 @@ namespace AutoVTF
 
         private void OnStartWatchingSuccess()
         {
+            // ui
             StartWatchingButton.Enabled = false;
             StopWatchingButton.Enabled = true;
 
             BrowseButton.Enabled = false;
             GotoButton.Enabled = false;
             WatchFolderTextbox.Enabled = false;
+            
+            // other
             FileWatcher.StartWatcher();
+            RecentsManager.Register(WatchFolderTextbox.Text);
         }
 
         private void WatchFolderTextbox_TextChanged(object sender, EventArgs e)
         {
             sender = null;
             e = null;
+
 
             // disable goto button if empty (why? it was suggested in an issue, i thought it was a good idea then, but now idk. but anyway its a nice feature ig)
             bool textBefore = watchFolderTextboxHasText;
@@ -663,8 +680,24 @@ namespace AutoVTF
             }
         }
 
-        // double buffering flickering issue fix??? i guess??
+        private void MakeButtonsUnfocusable(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (c is DarkButton)
+                {
+                    c.GotFocus += RedirectFocusAwayFromSelf;
+                }
+                MakeButtonsUnfocusable(c);
+            }
+        }
 
+        private void RedirectFocusAwayFromSelf(object? sender, EventArgs e)
+        {
+            this.Focus();
+        }
+
+        // double buffering flickering issue fix??? i guess??
         BufferedGraphics g;
         BufferedGraphicsContext gc;
 
@@ -679,8 +712,16 @@ namespace AutoVTF
             gc = BufferedGraphicsManager.Current;
             g = gc.Allocate(this.CreateGraphics(), this.ClientRectangle);
         }
-
         // fix ends here
+
+        private void WatchFolderRecentsButton_Click(object sender, EventArgs e)
+        {
+            Point showPosition = RecentsButton.PointToScreen(new Point(0, 0));
+            showPosition.Y += WatchFolderTextbox.Height;
+            showPosition.Y -= 1;
+
+            RecentsManager.Show(showPosition);
+        }
     }
 
     public static class ClassExtensions

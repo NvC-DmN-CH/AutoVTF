@@ -25,6 +25,8 @@ namespace AutoVTF
         public bool AdvancedImportPanel_F_PointSample {  get; set; }
         public bool AdvancedImportPanel_F_NoLod {  get; set; }
         public bool AdvancedImportPanel_F_Anisotropic { get; set; }
+
+        public List<string> RecentlyWatchedStringList { get; set; }
     }
 
     internal class Settings
@@ -44,6 +46,7 @@ namespace AutoVTF
             s.AdvancedImportPanel_F_PointSample     = Program.MainFormInstance.AdvancedImportPanel_F_PointSample.Checked;
             s.AdvancedImportPanel_F_NoLod           = Program.MainFormInstance.AdvancedImportPanel_F_NoLod.Checked;
             s.AdvancedImportPanel_F_Anisotropic     = Program.MainFormInstance.AdvancedImportPanel_F_Anisotropic.Checked;
+            s.RecentlyWatchedStringList                = Program.MainFormInstance.RecentsManager.ToStringList();
 
             JsonSerializerOptions o = new JsonSerializerOptions();
             o.WriteIndented = true;
@@ -63,6 +66,7 @@ namespace AutoVTF
             }
             catch (Exception e)
             {
+                // defaults
                 Program.MainFormInstance.SetWatchFolderTextboxValue("");
                 Program.MainFormInstance.AdvancedImportPanel_MipmapFilter.SelectedIndex = 10;
                 Program.MainFormInstance.AdvancedImportPanel_VtfVersion.SelectedIndex = 1;
@@ -86,6 +90,7 @@ namespace AutoVTF
             Program.MainFormInstance.AdvancedImportPanel_F_PointSample.Checked      = new_object.AdvancedImportPanel_F_PointSample;
             Program.MainFormInstance.AdvancedImportPanel_F_NoLod.Checked            = new_object.AdvancedImportPanel_F_NoLod;
             Program.MainFormInstance.AdvancedImportPanel_F_Anisotropic.Checked      = new_object.AdvancedImportPanel_F_Anisotropic;
+            Program.MainFormInstance.RecentsManager.SetFromStringList(new_object.RecentlyWatchedStringList);
         }
     }
 }

@@ -72,9 +72,11 @@ namespace AutoVTF
             AdvancedImportPanel_Ok = new DarkButton();
             toolTip = new ToolTip(components);
             groupBox4 = new DarkGroupBox();
+            RecentsButton = new DarkButton();
             GotoButton = new DarkButton();
             panel1 = new Panel();
             petPanel = new Panel();
+            RecentsMenuStrip = new ContextMenuStrip(components);
             VtfDragPanel.SuspendLayout();
             ImageDragPanel.SuspendLayout();
             AdvancedImportPanel.SuspendLayout();
@@ -92,11 +94,11 @@ namespace AutoVTF
             WatchFolderTextbox.BorderStyle = BorderStyle.FixedSingle;
             WatchFolderTextbox.Font = new Font("Segoe UI", 9F);
             WatchFolderTextbox.ForeColor = Color.FromArgb(220, 220, 220);
-            WatchFolderTextbox.Location = new Point(7, 21);
+            WatchFolderTextbox.Location = new Point(14, 21);
             WatchFolderTextbox.MaximumSize = new Size(500, 23);
             WatchFolderTextbox.MinimumSize = new Size(0, 23);
             WatchFolderTextbox.Name = "WatchFolderTextbox";
-            WatchFolderTextbox.Size = new Size(166, 23);
+            WatchFolderTextbox.Size = new Size(158, 23);
             WatchFolderTextbox.TabIndex = 4;
             WatchFolderTextbox.TextChanged += WatchFolderTextbox_TextChanged;
             WatchFolderTextbox.DragDrop += WatchFolderTextbox_DragDrop;
@@ -502,6 +504,7 @@ namespace AutoVTF
             // groupBox4
             // 
             groupBox4.BorderColor = Color.FromArgb(81, 81, 81);
+            groupBox4.Controls.Add(RecentsButton);
             groupBox4.Controls.Add(GotoButton);
             groupBox4.Controls.Add(WatchFolderTextbox);
             groupBox4.Controls.Add(BrowseButton);
@@ -514,6 +517,15 @@ namespace AutoVTF
             groupBox4.TabIndex = 15;
             groupBox4.TabStop = false;
             groupBox4.Text = "Materials folder to watch:";
+            // 
+            // RecentsButton
+            // 
+            RecentsButton.Location = new Point(5, 21);
+            RecentsButton.Name = "RecentsButton";
+            RecentsButton.Padding = new Padding(5);
+            RecentsButton.Size = new Size(10, 23);
+            RecentsButton.TabIndex = 14;
+            RecentsButton.Click += WatchFolderRecentsButton_Click;
             // 
             // GotoButton
             // 
@@ -545,6 +557,13 @@ namespace AutoVTF
             petPanel.TabIndex = 0;
             petPanel.MouseDown += petPanel_MouseDown;
             petPanel.MouseUp += petPanel_MouseUp;
+            // 
+            // RecentsMenuStrip
+            // 
+            RecentsMenuStrip.LayoutStyle = ToolStripLayoutStyle.Table;
+            RecentsMenuStrip.Name = "RecentsMenuStrip";
+            RecentsMenuStrip.ShowImageMargin = false;
+            RecentsMenuStrip.Size = new Size(36, 4);
             // 
             // MainFormDarkUi
             // 
@@ -630,5 +649,7 @@ namespace AutoVTF
         private DarkGroupBox groupBox4;
         private DarkButton GotoButton;
         private Panel panel2;
+        private DarkButton RecentsButton;
+        private ContextMenuStrip RecentsMenuStrip;
     }
 }

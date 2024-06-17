@@ -2,6 +2,7 @@
 {
     public static class AlertMessages
     {
+        public const string WatchFolderEmpty = "The text field is empty!\n(You can just drag and drop a folder in the text field)";
         public const string WatchFolderInvalid = "The program thinks that this folder doesn't exist.\n(Check spelling or just drag and drop a folder in the text field)";
         public const string VmtNoMaterialsFolder = "Couldn't construct a correct path inside the VMT. It will be correct if the file is in a \"materials\" folder.\n";
         public const string VmtWriteFail = "Couldn't write VMT to the system";

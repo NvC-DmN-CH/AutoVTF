@@ -127,7 +127,7 @@ namespace AutoVTF
                     {
                         double meanDouble = Double.Parse(meanStr);
                         isOpaque = (meanDouble == 1);
-                        Program.Alert("" + meanDouble); // debug
+                        //Program.Alert("" + meanDouble); // debug
                     }
                 }
 

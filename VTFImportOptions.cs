@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using ImageMagick;
 
@@ -12,7 +13,7 @@ namespace AutoVTF
 {
     internal class VtfImportOptionsObject
     {
-        public static uint DEFAULT_FLAGS = 0/*(uint)VtfImageFlag.SRGB*/; // srgb flag doesn't exist, hopefully this won't be a problem
+        public static uint DEFAULT_FLAGS = 0;
         public static uint DEFAULT_VER1 = 7;
         public static uint DEFAULT_VER2 = 1;
         public static bool DEFAULT_MIP_ENABLED = true;
@@ -98,8 +99,53 @@ namespace AutoVTF
 
         public void SetImageFormatHasAlphaFromFile(string filePath)
         {
-            MagickImage i = new MagickImage(filePath);
-            if (i.IsOpaque)
+            bool isOpaque = true;
+
+            // omg this is SO ugly i hate this i hate it i hate it i hate it
+            // but at least we will be able to read the PSD alpha channel
+            // I blame imagemagick for not being able to do this simple operation. Actually blame adobe
+            
+            if (Path.GetExtension(filePath) == Extensions.Psd)
+            {
+                bool isFileWatcherSupposedToWatch = FileWatcher.IsWatching();
+                if (isFileWatcherSupposedToWatch)
+                {
+                    FileWatcher.StopWatcher();
+                }
+
+                string tempVtfPath = Path.ChangeExtension(filePath, ".vtf");
+                string tempTgaPath = Path.ChangeExtension(filePath, ".tga");
+
+                Decisions.MakeAsset(filePath, VtfImportOptionsObject.GenPrefabLossless());
+                Decisions.ExportAsset(tempVtfPath, VTFExportOptions.TGA);
+                
+                using (MagickImage tga = new MagickImage(tempTgaPath))
+                {
+                    MagickImage alphaChannel = (MagickImage)tga.Separate(Channels.Alpha).First();
+                    string meanStr = alphaChannel.FormatExpression("%[fx:mean]");
+                    if (meanStr != null)
+                    {
+                        double meanDouble = Double.Parse(meanStr);
+                        isOpaque = (meanDouble == 1);
+                        Program.Alert("" + meanDouble); // debug
+                    }
+                }
+
+                File.Delete(tempTgaPath);
+                File.Delete(tempVtfPath);
+
+                if (isFileWatcherSupposedToWatch)
+                {
+                    FileWatcher.StartWatcher();
+                }
+            }
+            else
+            {
+                MagickImage i = new MagickImage(filePath);
+                isOpaque = i.IsOpaque;
+            }
+
+            if (isOpaque)
             {
                 SetImageFormatHasAlpha(false);
             }
@@ -107,6 +153,8 @@ namespace AutoVTF
             {
                 SetImageFormatHasAlpha(true);
             }
+
+            //File.Delete();
         }
 
         public void SetFlags(uint value)

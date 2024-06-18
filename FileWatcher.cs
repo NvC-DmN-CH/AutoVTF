@@ -22,7 +22,7 @@ namespace AutoVTF
         private static TimeSpan debouncerDelay = new TimeSpan(0, 0, 0, 0, 100);
         private static Dictionary<string, List<CallType>> FileCallsPair = new Dictionary<string, List<CallType>>();
         private static FileSystemWatcher? watcher = null;
-
+        
         public static void StartWatcher()
         {
             if (watcher != null)
@@ -54,6 +54,11 @@ namespace AutoVTF
 
             watcher.Dispose();
             watcher = null;
+        }
+
+        public static bool IsWatching()
+        {
+            return watcher != null;
         }
 
         // INTERFACE

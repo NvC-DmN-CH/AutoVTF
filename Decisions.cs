@@ -89,7 +89,8 @@ namespace AutoVTF
             bool pause = false;
             bool is_silent = true;
             string fileName = "vtfcmd/vtfcmd.exe";
-            string arguments = @"-file " + "\"" + filePath + "\" " + importOptions.ToArgumentsString() + (is_silent ? " -silent" : "") + (pause ? " -pause" : "");
+            string arguments = @"-file " + "\"" + filePath + "\" " + importOptions.ToArgumentsString() + (is_silent ? " -silent" : "") + (pause ? " -pause" : "") + " -srgb";
+
             ProcessStartInfo startInfo = new ProcessStartInfo(fileName, arguments);
             startInfo.CreateNoWindow = true;
 
@@ -107,12 +108,12 @@ namespace AutoVTF
             }
         }
 
-        public static void ExportAsset(string file_path, string export_options)
+        public static void ExportAsset(string filePath, string exportOptions)
         {
             bool pause = false;
             bool is_silent = true;
             string fileName = "vtfcmd/vtfcmd.exe";
-            string arguments = @"-file " + "\"" + file_path + "\" " + export_options + (is_silent ? " -silent" : "") + (pause ? " -pause" : "");
+            string arguments = @"-file " + "\"" + filePath + "\" " + exportOptions + (is_silent ? " -silent" : "") + (pause ? " -pause" : "");
 
             ProcessStartInfo startInfo = new ProcessStartInfo(fileName, arguments);
             startInfo.CreateNoWindow = true;
@@ -122,12 +123,12 @@ namespace AutoVTF
                 using (Process p = Process.Start(startInfo))
                 {
                     p.WaitForExit(VTFCMD_TIMEOUT_MS);
-                    TryDeleteTempImageFromVtf(file_path);
+                    TryDeleteTempImageFromVtf(filePath);
                 }
             }
             catch
             {
-                TryDeleteTempImageFromVtf(file_path);
+                TryDeleteTempImageFromVtf(filePath);
             }
         }
 

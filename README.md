@@ -1,4 +1,4 @@
-# What is this?
+![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/387926b9-fb1e-4d06-ae0c-ac33fc1b8c6e)# What is this?
 
 Keeps an eye on a folder, and when any image gets modified, it makes or updates the VTF with the same name
 
@@ -20,7 +20,9 @@ Keeps an eye on a folder, and when any image gets modified, it makes or updates 
 (it works this way when any supported image file is updated, this is just an example of   photoshop updating a .psd file)
 
 > [!IMPORTANT]  
-Due to Adobe's closed-source nature, new Photoshop versions have features which are unsupported, and may cause differences in exporting. It's advisable to use an older version (I had no issues with Photoshop CS6)
+Alpha channel won't be recognized if you have only 1 locked layer: <br/> ![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/b63caa90-43f1-44fd-a5b4-8c287d7da1f3) <br/><br/> Due to Adobe's closed-source nature, new Photoshop versions have features which are unsupported, and may cause differences in exporting. It's advisable to use an older version like Photoshop CS6
+
+
 ---
 
 ### Drag-n-Dropping allows for a bunch of manual conversions:

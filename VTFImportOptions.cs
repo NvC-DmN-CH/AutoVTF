@@ -115,8 +115,10 @@ namespace AutoVTF
 
                 string tempVtfPath = Path.ChangeExtension(filePath, ".vtf");
                 string tempTgaPath = Path.ChangeExtension(filePath, ".tga");
+                var importOptions = VtfImportOptionsObject.GenPrefabLossless();
+                importOptions.mipEnabled = false;
 
-                Decisions.MakeAsset(filePath, VtfImportOptionsObject.GenPrefabLossless());
+                Decisions.MakeAsset(filePath, importOptions);
                 Decisions.ExportAsset(tempVtfPath, VTFExportOptions.TGA);
                 
                 using (MagickImage tga = new MagickImage(tempTgaPath))

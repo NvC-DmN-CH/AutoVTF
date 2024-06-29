@@ -483,12 +483,16 @@ namespace AutoVTF
 
         private void OnStopWatching()
         {
+            // ui
             StartWatchingButton.Enabled = true;
             StopWatchingButton.Enabled = false;
 
             BrowseButton.Enabled = true;
             GotoButton.Enabled = true;
             WatchFolderTextbox.Enabled = true;
+            RecentsButton.Enabled = true;
+
+            // other
             FileWatcher.StopWatcher();
         }
 
@@ -501,6 +505,7 @@ namespace AutoVTF
             BrowseButton.Enabled = false;
             GotoButton.Enabled = false;
             WatchFolderTextbox.Enabled = false;
+            RecentsButton.Enabled = false;
             
             // other
             FileWatcher.StartWatcher();

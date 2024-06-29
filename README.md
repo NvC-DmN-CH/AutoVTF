@@ -1,4 +1,4 @@
-![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/387926b9-fb1e-4d06-ae0c-ac33fc1b8c6e)# What is this?
+# What is this?
 
 Keeps an eye on a folder, and when any image gets modified, it makes or updates the VTF with the same name
 

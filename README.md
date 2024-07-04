@@ -19,8 +19,9 @@ Keeps an eye on a folder, and when any image gets modified, it makes or updates 
 
 (it works this way when any supported image file is updated, this is just an example of   photoshop updating a .psd file)
 
-> [!IMPORTANT]  
-Alpha channel won't be recognized if you have only 1 locked layer: <br/> ![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/b63caa90-43f1-44fd-a5b4-8c287d7da1f3) <br/><br/> Due to Adobe's closed-source nature, new Photoshop versions have features which are unsupported, and may cause differences in exporting. It's advisable to use an older version like Photoshop CS6
+> [!IMPORTANT]
+Photoshop notice: <br/> <br/>
+Alpha channel won't be recognized if you have only 1 layer locked like this: <br/> ![image](https://github.com/NvC-DmN-CH/AutoVTF/assets/56874047/b63caa90-43f1-44fd-a5b4-8c287d7da1f3) <br/><br/> Due to Adobe's closed-source nature, new Photoshop versions have features which are unsupported, and may cause differences in exporting. It's advisable to use an older version like Photoshop CS6
 
 
 ---

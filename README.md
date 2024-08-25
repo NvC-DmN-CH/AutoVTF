@@ -113,8 +113,5 @@ If you found a bug or have a suggestion you can create an [issue](https://github
 <br />
 
 ## Program is often falsely detected as virus
-And I really don't know why, I promise that it's not!
 
 If you want to be sure that there is nothing malicious, take a look at the source code and compile it, and download/compile the external dependencies yourself.
-
-If you have any idea how to fix this, please let me know

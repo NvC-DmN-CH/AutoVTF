@@ -114,4 +114,6 @@ If you found a bug or have a suggestion you can create an [issue](https://github
 
 ## Program is often falsely detected as virus
 
+Most likely because of the file watcher functionality: The tool needs to be notified when an images updates inside the given directory.
+
 If you want to be sure that there is nothing malicious, take a look at the source code and compile it, and download/compile the external dependencies yourself.
